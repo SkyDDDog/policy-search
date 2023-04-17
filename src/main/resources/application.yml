@@ -1,0 +1,62 @@
+server:
+  port: 12345
+apiPath: api
+api:
+  policy:
+    requestUrl: http://27.150.79.91:5000/policy/
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: mysql
+    url: jdbc:mysql://${spring.datasource.host}:3306/policy?serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+  redis:
+#    host: localhost
+    host: redis
+    port: 6379
+    password:
+    connect-timeout: 3000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+      shutdown-timeout: 3000
+  mail:
+    host: your_mail_service_host
+    port: 465
+    username: your_mail_address
+    password: your_mail_password
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # 解决springboot和swagger2版本冲突
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+jwt:
+  secret: "West2Online"
+  token-head: "Bearer "
+  header-name: "Authorization"
+  access-expiration: 3600
+  roles-expiration: 300
+  refresh-expiration: 604800
